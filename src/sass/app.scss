@@ -1,0 +1,40 @@
+@import "bourbon";
+@import "neat";
+
+$background-color-light: #FFFFFF;
+$background-color-light-accent: #EEEEEE;
+$background-color-dark: #515151;
+$primary-color: #00B4FF;
+$accent-color: #2ECC71;
+
+@import "button";
+@import "input";
+@import "select";
+@import "components/alt-header";
+@import "components/alt-space-row";
+@import "dashboard/dashboard";
+
+html, body {
+    height: 100%;
+}
+body {
+    background-color: $background-color-light;
+
+    font-family: "Open Sans", sans-serif;
+    color: $background-color-dark;
+
+    *:focus {
+        outline: 0;
+    }
+    main {
+        @include outer-container();
+
+        font-size: 14px;
+
+        h1, h2, h3, h4, h5, h6 {
+            padding: 0;
+            margin: 0;
+        }
+        max-width: 1024px;
+    }
+}

@@ -1,0 +1,37 @@
+<div class="dashboard">
+    <section class="filters">
+        <div dropdown-select="ddSelectOptions" dropdown-model="ddSelectSelected" dropdown-onchange="onDropdownChange(selected)"></div>
+        <div class="search">
+            <i class="fa fa-search"></i>
+            <input type="text" ng-model="search" placeholder="Search Spaces">
+        </div>
+    </section>
+    <section>
+        <div class="table">
+            <header>
+                <div class="title-column">
+                    Name
+                </div>
+                <div class="description-column">
+                    Description
+                </div>
+                <div class="members-column">
+                    Users
+                </div>
+                <div class="created-by-column">
+                    Created By
+                </div>
+                <div class="welcome-column" title="Welcome Space">
+                    <i class="fa fa-home"></i>
+                </div>
+                <div class="private-column" title="Private Space">
+                    <i class="fa fa-lock"></i>
+                </div>
+                <div class="featured-column" title="Featured Space">
+                    <i class="fa fa-star"></i>
+                </div>
+            </header>
+            <alt-space-row ng-repeat="space in spaces | filter: search" space="space"></alt-space-row>
+        </div>
+    </section>
+</div>

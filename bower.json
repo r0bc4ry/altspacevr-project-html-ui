@@ -1,0 +1,22 @@
+{
+  "name": "altspacevr-project-html-ui-master",
+  "version": "0.0.0",
+  "authors": [
+    "Rob Cary <r0bc4ry@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.1",
+    "angular-route": "~1.4.1",
+    "normalize.css": "~3.0.3",
+    "d3": "~3.5.5",
+    "angular-dropdowns": "~1.1.0"
+  }
+}
