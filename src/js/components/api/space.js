@@ -18,7 +18,7 @@ angular.module('myApp.services').service('Space', function(
             });
 
             // Invoke the resolveCallback function
-            resolveCallback(spaces);
+            resolveCallback(angular.copy(spaces));
         }, function(reason) {
             rejectCallback ? rejectCallback(reason) : resolveCallback(reason);
         });
@@ -38,14 +38,14 @@ angular.module('myApp.services').service('Space', function(
         var storedData = cache.get(params.id);
 
         if (storedData) {
-            resolveCallback(storedData);
+            resolveCallback(angular.copy(storedData));;
         } else {
             Data.Space.getById(params.id).then(function(space) {
                 // Cache returned space
                 cache.put(space.id, space);
 
                 // Invoke the resolveCallback function
-                resolveCallback(space);
+                resolveCallback(angular.copy(space));
             }, function(reason) {
                 rejectCallback ? rejectCallback(reason) : resolveCallback(reason);
             });
@@ -58,17 +58,17 @@ angular.module('myApp.services').service('Space', function(
      * @param resolveCallback
      * @param rejectCallback
      */
-    this.updateById = function(params, resolveCallback, rejectCallback) {
+    this.updateById = function(params, data, resolveCallback, rejectCallback) {
         if (! params.id) {
             rejectCallback('A required parameter (id) is missing.');
         }
 
-        Data.Space.updateById(params.id).then(function(space) {
+        Data.Space.updateById(params.id, data).then(function(space) {
             // Cache returned space
             cache.put(space.id, space);
 
             // Invoke the resolveCallback function
-            resolveCallback(space);
+            resolveCallback(angular.copy(space));
         }, function(reason) {
             rejectCallback ? rejectCallback(reason) : resolveCallback(reason);
         });
@@ -80,13 +80,13 @@ angular.module('myApp.services').service('Space', function(
      * @param resolveCallback
      * @param rejectCallback
      */
-    this.create = function(params, resolveCallback, rejectCallback) {
-        Data.Space.create(params).then(function(space) {
+    this.create = function(data, resolveCallback, rejectCallback) {
+        Data.Space.create(data).then(function(space) {
             // Cache returned space
             cache.put(space.id, space);
 
             // Invoke the resolveCallback function
-            resolveCallback(space);
+            resolveCallback(angular.copy(space));
         }, function(reason) {
             rejectCallback ? rejectCallback(reason) : resolveCallback(reason);
         });
@@ -105,7 +105,7 @@ angular.module('myApp.services').service('Space', function(
 
         Data.Space.deleteById(params.id).then(function() {
             // Remove deleted space
-            cache.remove(space.id);
+            cache.remove(params.id);
 
             // Invoke the resolveCallback function
             resolveCallback();

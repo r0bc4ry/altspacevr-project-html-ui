@@ -6,13 +6,19 @@ $background-color-light-accent: #EEEEEE;
 $background-color-dark: #515151;
 $primary-color: #00B4FF;
 $accent-color: #2ECC71;
+$error-color: #E74C3C;
 
 @import "button";
+@import "dialog";
 @import "input";
 @import "select";
 @import "components/alt-header";
-@import "components/alt-space-row";
+@import "components/create-space-dialog";
+@import "dashboard/alt-space-row";
 @import "dashboard/dashboard";
+@import "space/alt-member-select";
+@import "space/delete-space-dialog";
+@import "space/space";
 
 html, body {
     height: 100%;
@@ -27,14 +33,11 @@ body {
         outline: 0;
     }
     main {
-        @include outer-container();
-
         font-size: 14px;
 
         h1, h2, h3, h4, h5, h6 {
             padding: 0;
             margin: 0;
         }
-        max-width: 1024px;
     }
 }

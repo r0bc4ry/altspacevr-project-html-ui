@@ -1,6 +1,17 @@
 // Reusable <input> styles
-input[type="text"] {
+input[type="text"],
+textarea {
     width: 100%;
     padding: 4px 12px;
+    border: 1px solid $background-color-light-accent;
     margin: 0;
+
+    line-height: golden-ratio(14px, 1);
+
+    &:focus {
+        border-color: $primary-color;
+    }
+}
+textarea {
+    resize: vertical;
 }

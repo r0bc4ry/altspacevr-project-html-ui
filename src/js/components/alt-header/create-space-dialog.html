@@ -1,0 +1,21 @@
+<div class="create-space-dialog">
+    <h3>Create a New Space</h3>
+    <div class="input-row">
+        <label>Name</label>
+        <input type="text" ng-model="title">
+    </div>
+    <div class="input-row">
+        <label>Description</label>
+        <textarea ng-model="description"></textarea>
+    </div>
+    <div class="input-row">
+        <label>Options</label>
+        <label class="checkbox-wrapper"><input type="checkbox" ng-model="welcome"> Welcome Space</label>
+        <label class="checkbox-wrapper"><input type="checkbox" ng-model="private"> Private Space</label>
+        <label class="checkbox-wrapper"><input type="checkbox" ng-model="featured"> Featured Space</label>
+    </div>
+    <div class="buttons">
+        <button ng-click="onCreateClick()">Create Space</button>
+        <button class="cancel" ng-click="closeThisDialog()">Cancel</button>
+    </div>
+</div>

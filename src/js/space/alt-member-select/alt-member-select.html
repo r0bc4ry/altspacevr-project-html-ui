@@ -1,0 +1,20 @@
+<header class="alt-member-select">
+    <div class="search-wrapper">
+        <div class="search">
+            <input type="text" ng-model="search" placeholder="Search Users">
+        </div>
+    </div>
+    <div class="users">
+        <div class="user-tile" ng-repeat="user in users | filter: search | orderBy : 'last_name'" ng-class="getUserTileClasses(user)" ng-click="onUserTileClick(user)">
+            <div class="member-icon">
+                <i class="fa fa-check"></i>
+            </div>
+            <div class="information">
+                <div class="picture" ng-style="{ 'background-image': 'url(' + (user.picture ? user.picture : 'dist/img/users/default.jpg') + ')' }"></div><!--
+                --><div class="name">
+                    {{ user.first_name }} {{ user.last_name }}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

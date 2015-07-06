@@ -6,6 +6,7 @@ button {
     border-radius: 4px;
 
     color: #fff;
+    font-size: 16px;
     font-weight: 600;
 
     &:hover {
@@ -13,5 +14,25 @@ button {
     }
     &:active {
         background-color: darken($primary-color, 10%);
+    }
+    &.cancel {
+        background-color: $background-color-dark;
+
+        &:hover {
+            background-color: lighten($background-color-dark, 10%);
+        }
+        &:active {
+            background-color: darken($background-color-dark, 10%);
+        }
+    }
+    &.delete {
+        background-color: $error-color;
+
+        &:hover {
+            background-color: lighten($error-color, 10%);
+        }
+        &:active {
+            background-color: darken($error-color, 10%);
+        }
     }
 }

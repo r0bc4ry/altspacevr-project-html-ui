@@ -18,7 +18,7 @@ angular.module('myApp.services').service('User', function(
             });
 
             // Invoke the resolveCallback function
-            resolveCallback(users);
+            resolveCallback(angular.copy(users));
         }, function(reason) {
             rejectCallback ? rejectCallback(reason) : resolveCallback(reason);
         });
@@ -38,14 +38,14 @@ angular.module('myApp.services').service('User', function(
         var storedData = cache.get(params.id);
 
         if (storedData) {
-            resolveCallback(storedData);
+            resolveCallback(angular.copy(storedData));
         } else {
             Data.User.getById(params.id).then(function(user) {
                 // Cache returned user
                 cache.put(user.id, user);
 
                 // Invoke the resolveCallback function
-                resolveCallback(user);
+                resolveCallback(angular.copy(user));
             }, function(reason) {
                 rejectCallback ? rejectCallback(reason) : resolveCallback(reason);
             });
@@ -58,17 +58,17 @@ angular.module('myApp.services').service('User', function(
      * @param resolveCallback
      * @param rejectCallback
      */
-    this.updateById = function(params, resolveCallback, rejectCallback) {
+    this.updateById = function(params, data, resolveCallback, rejectCallback) {
         if (! params.id) {
             rejectCallback('A required parameter (id) is missing.');
         }
 
-        Data.User.updateById(params.id).then(function(user) {
+        Data.User.updateById(params.id, data).then(function(user) {
             // Cache returned user
             cache.put(user.id, user);
 
             // Invoke the resolveCallback function
-            resolveCallback(user);
+            resolveCallback(angular.copy(user));
         }, function(reason) {
             rejectCallback ? rejectCallback(reason) : resolveCallback(reason);
         });
@@ -80,13 +80,13 @@ angular.module('myApp.services').service('User', function(
      * @param resolveCallback
      * @param rejectCallback
      */
-    this.create = function(params, resolveCallback, rejectCallback) {
-        Data.User.create(params).then(function(user) {
+    this.create = function(data, resolveCallback, rejectCallback) {
+        Data.User.create(data).then(function(user) {
             // Cache returned user
             cache.put(user.id, user);
 
             // Invoke the resolveCallback function
-            resolveCallback(user);
+            resolveCallback(angular.copy(user));
         }, function(reason) {
             rejectCallback ? rejectCallback(reason) : resolveCallback(reason);
         });
@@ -105,7 +105,7 @@ angular.module('myApp.services').service('User', function(
 
         Data.User.deleteById(params.id).then(function() {
             // Remove deleted user
-            cache.remove(user.id);
+            cache.remove(params.id);
 
             // Invoke the resolveCallback function
             resolveCallback();

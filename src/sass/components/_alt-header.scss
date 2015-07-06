@@ -1,7 +1,7 @@
 .alt-header {
     @include clearfix;
     background-color: $background-color-dark;
-    padding: 0 24.126px;
+    padding: 0 24px;
 
     .branding {
         float: left;
@@ -15,8 +15,7 @@
 
         button {
             background-color: $accent-color;
-            padding: 6px 12px;
-            margin: 8px 0;
+            margin: 10px 0;
 
             &:hover {
                 background-color: lighten($accent-color, 10%);

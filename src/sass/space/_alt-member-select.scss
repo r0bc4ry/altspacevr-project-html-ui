@@ -1,0 +1,63 @@
+.alt-member-select {
+    .search-wrapper {
+        @include row();
+        margin-bottom: 24px;
+
+        .search {
+            @include span-columns(6);
+        }
+    }
+    .users {
+        .user-tile {
+            @include span-columns(3);
+            padding: 12px 12px;
+            border: 1px solid #fff;
+            margin-bottom: 12px;
+
+            line-height: 26px;
+
+            cursor: pointer;
+
+            &:nth-child(4n) {
+                margin-right: 0;
+            }
+            &:hover {
+                .member-icon {
+                    display: block;
+                }
+            }
+            &.member {
+                background-color: $primary-color;
+
+                color: #fff;
+
+                .member-icon {
+                    display: block;
+                }
+            }
+            .information {
+                overflow: hidden;
+
+                .picture {
+                    display: inline-block;
+                    width: 32px;
+                    height: 32px;
+                    background-size: cover;
+                    border-radius: 50%;
+                    margin-right: 12px;
+
+                    vertical-align: middle;
+                }
+                .name {
+                    display: inline-block;
+                }
+            }
+            .member-icon {
+                display: none;
+                float: right;
+
+                font-size: 24px;
+            }
+        }
+    }
+}

@@ -4,6 +4,7 @@
 angular.module('myApp', [
     'ngRoute',
 
+    'ngDialog',
     'ngDropdowns',
 
     'myApp.controllers',

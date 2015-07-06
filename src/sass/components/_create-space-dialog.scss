@@ -1,0 +1,35 @@
+.create-space-dialog {
+    h3 {
+        margin: 0 0 24px;
+
+        font-size: 16px;
+        font-weight: 600;
+        color: $primary-color;
+    }
+    .input-row {
+        margin-bottom: 12px;
+
+        > label {
+            display: block;
+            margin-bottom: 4px;
+
+            font-weight: 600;
+        }
+        .checkbox-wrapper {
+            margin-bottom: 0;
+
+            font-weight: normal;
+            line-height: golden-ratio(14px, 1);
+
+            cursor: pointer;
+        }
+    }
+    .buttons {
+        margin-top: 24px;
+        text-align: center;
+
+        .cancel {
+            margin-left: 12px;
+        }
+    }
+}

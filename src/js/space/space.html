@@ -1,3 +1,96 @@
 <div class="space">
-    This is a space.
+    <section class="header">
+        <div>
+            <h1>{{ space.title }}</h1>
+            <div class="created-by">Created by {{ createdBy.first_name }} {{ createdBy.last_name }}</div>
+            <div class="description">{{ space.description }}</div>
+
+        </div>
+    </section>
+
+    <section class="navigation">
+        <div>
+            <ul>
+                <li ng-click="section = 'analytics'" ng-class="{ active: section === 'analytics' }">Analytics</li>
+                <li ng-click="section = 'members'" ng-class="{ active: section === 'members' }">Members</li>
+                <li ng-click="section = 'edit'" ng-class="{ active: section === 'edit' }">Edit</li>
+                <li ng-click="section = 'danger'" ng-class="{ active: section === 'danger' }">Danger Zone</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="analytics" ng-show="section === 'analytics'">
+        <div>
+            <h3>Overview</h3>
+            <div class="statistics">
+                <div class="tile">
+                    <div class="value">{{ space.analytics.current_users || 0 }}</div>
+                    <div class="label">Current Users</div>
+                </div>
+                <div class="tile">
+                    <div class="value">{{ space.analytics.peak_users || 0 }}</div>
+                    <div class="label">Peak Users</div>
+                </div>
+                <div class="tile">
+                    <div class="value">{{ (space.analytics.visits | number: 0) || 0 }}</div>
+                    <div class="label">Visits</div>
+                </div>
+                <div class="tile">
+                    <div class="value">{{ space.analytics.average_duration || 0 }}</div>
+                    <div class="label">Average Duration</div>
+                </div>
+            </div>
+
+            <h3>Active Users <span>(most recent 48 hours)</span></h3>
+            <alt-chart data="space.analytics.recent_users"></alt-chart>
+        </div>
+    </section>
+
+    <section class="members" ng-show="section === 'members'">
+        <div>
+            <alt-member-select members="space.members"></alt-member-select>
+        </div>
+    </section>
+
+    <section class="edit" ng-show="section === 'edit'">
+        <div>
+            <form>
+                <h3>Edit This Space</h3>
+                <div class="input-row">
+                    <label>Name</label>
+                    <input type="text" ng-model="editableSpace.title">
+                </div>
+                <div class="input-row">
+                    <label>Description</label>
+                    <textarea ng-model="editableSpace.description"></textarea>
+                </div>
+                <div class="input-row">
+                    <label>Options</label>
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" ng-model="editableSpace.welcome"> Welcome Space
+                    </label>
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" ng-model="editableSpace.private"> Private Space
+                    </label>
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" ng-model="editableSpace.featured"> Featured Space
+                    </label>
+                </div>
+                <div class="buttons">
+                    <button class="cancel" ng-click="onEditCancel()">Cancel Changes</button>
+                    <button ng-click="onEditSave()">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="danger-zone" ng-show="section === 'danger'">
+        <div>
+            <h3>Delete This Space</h3>
+            Warning! This will permanently delete this space, there is no going back.
+            <div class="buttons">
+                <button class="delete" ng-click="onDelete()">Delete {{ space.title }}</button>
+            </div>
+        </div>
+    </section>
 </div>

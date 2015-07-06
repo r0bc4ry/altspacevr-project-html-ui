@@ -8,7 +8,7 @@ angular.module('myApp.directives').directive('altSpaceRow', function() {
             space: '='
         },
         link: postLink,
-        templateUrl: 'components/alt-space-row/alt-space-row.html'
+        templateUrl: 'dashboard/alt-space-row/alt-space-row.html'
     };
 
     function postLink(scope, elm, attrs) {

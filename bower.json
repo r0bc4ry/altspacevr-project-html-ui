@@ -17,6 +17,7 @@
     "angular-route": "~1.4.1",
     "normalize.css": "~3.0.3",
     "d3": "~3.5.5",
-    "angular-dropdowns": "~1.1.0"
+    "angular-dropdowns": "~1.1.0",
+    "ngDialog": "~0.4.0"
   }
 }

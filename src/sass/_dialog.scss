@@ -1,0 +1,34 @@
+// Reusable ngDialog styles
+.ngdialog.ngdialog-theme-default {
+    .ngdialog-content {
+        background-color: #fff;
+        border-radius: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+        font-size: 14px;
+        color: $background-color-dark;
+
+        .ngdialog-close {
+            &::before {
+                content: "\f00d";
+                display: inline-block;
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: inherit;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                transform: translate(0, 0);
+
+                width: 32px;
+                height: 32px;
+
+                top: 0;
+                right: 0;
+
+                font-size: 16px;
+                text-align: center;
+                line-height: 32px;
+            }
+        }
+    }
+}

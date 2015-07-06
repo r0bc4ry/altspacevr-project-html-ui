@@ -15,7 +15,7 @@
                 <div class="description-column">
                     Description
                 </div>
-                <div class="members-column">
+                <div class="current-users-column">
                     Users
                 </div>
                 <div class="created-by-column">
@@ -31,7 +31,9 @@
                     <i class="fa fa-star"></i>
                 </div>
             </header>
-            <alt-space-row ng-repeat="space in spaces | filter: search" space="space"></alt-space-row>
+            <a ng-repeat="space in spaces | filter: search" ng-href="#/spaces/{{ space.id }}">
+                <alt-space-row space="space"></alt-space-row>
+            </a>
         </div>
     </section>
 </div>

@@ -1,14 +1,14 @@
 // Reusable <select> styles
 .wrap-dd-select {
-    background-color: #fff;
+    background-color: $background-color-light-accent;
     padding: 4px 12px;
-    border: 1px solid $background-color-light-accent;
+    border: none;
     border-radius: 0;
     box-shadow: none;
 
     font-weight: normal;
     color: $background-color-dark;
-    line-height: 22px;
+    line-height: 24px;
 
     &:after {
         border-color: $background-color-dark transparent;

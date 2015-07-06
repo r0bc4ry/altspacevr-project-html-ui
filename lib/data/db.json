@@ -20,7 +20,31 @@
 			"first_name": "John",
 			"last_name": "Doe",
 			"admin": false
-		}
+		},
+        "4": {
+            "id": 4,
+            "email": "gaben@valvesoftware.com",
+            "first_name": "Gabe",
+            "last_name": "Newell",
+            "admin": false,
+            "picture": "dist/img/users/4.jpg"
+        },
+        "5": {
+            "id": 5,
+            "email": "palmer.luckey@oculusvr.com",
+            "first_name": "Palmer",
+            "last_name": "Luckey",
+            "admin": false,
+            "picture": "dist/img/users/5.jpg"
+        },
+        "6": {
+            "id": 6,
+            "email": "john.carmack@oculusvr.com",
+            "first_name": "John",
+            "last_name": "Carmack",
+            "admin": false,
+            "picture": "dist/img/users/6.jpg"
+        }
 	},
 	"Space": {
 		"1": {
@@ -31,7 +55,21 @@
 			"private": false,
 			"featured": false,
 			"created_by": 1,
-			"members": null
+			"members": null,
+            "analytics": {
+                "current_users": 22,
+                "peak_users": 56,
+                "visits": 2522,
+                "average_duration": "00:34:49",
+                "recent_users": [
+                    { "time": 0, "users": 0 },
+                    { "time": 0, "users": 1 },
+                    { "time": 0, "users": 2 },
+                    { "time": 0, "users": 3 },
+                    { "time": 0, "users": 4 },
+                    { "time": 0, "users": 5 }
+                ]
+            }
 		},
 		"2": {
 			"id": 2,
@@ -41,7 +79,22 @@
 			"private": false,
 			"featured": true,
 			"created_by": 1,
-			"members": null
+			"members": null,
+            "analytics": {
+                "current_users": 17,
+                "peak_users": 142,
+                "visits": 3346,
+                "average_duration": "01:01:07",
+                "recent_users": [
+                    { "time": 0, "users": 0 },
+                    { "time": 0, "users": 1 },
+                    { "time": 0, "users": 2 },
+                    { "time": 0, "users": 3 },
+                    { "time": 0, "users": 4 },
+                    { "time": 0, "users": 5 }
+                ]
+
+            }
 		},
 		"3": {
 			"id": 3,
@@ -51,7 +104,21 @@
 			"private": true,
 			"featured": false,
 			"created_by": 1,
-			"members": [1, 2]
+			"members": [1, 2],
+            "analytics": {
+                "current_users": 1,
+                "peak_users": 4,
+                "visits": 617,
+                "average_duration": "00:18:28",
+                "recent_users": [
+                    { "time": 0, "users": 0 },
+                    { "time": 0, "users": 1 },
+                    { "time": 0, "users": 2 },
+                    { "time": 0, "users": 3 },
+                    { "time": 0, "users": 4 },
+                    { "time": 0, "users": 5 }
+                ]
+            }
 		}
 	}
 }

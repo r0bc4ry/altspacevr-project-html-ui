@@ -3,6 +3,7 @@
 angular.module('myApp.controllers').controller('DashboardController', function(
     $location,
     $q,
+    $rootScope,
     $scope,
     Space,
     User
@@ -50,10 +51,6 @@ angular.module('myApp.controllers').controller('DashboardController', function(
 
             // Get the creating user for each space
             spaces.forEach(function(space) {
-                if (typeof space.created_by === 'object') {
-                    return;
-                }
-
                 var spaceDeferred = $q.defer();
                 spaceDeferreds.push(spaceDeferred);
 
@@ -77,10 +74,9 @@ angular.module('myApp.controllers').controller('DashboardController', function(
         return deferred.promise;
     }
 
-    $scope.go = function(path) {
-        $location.path(path);
-    };
-
+    /**
+     * Self-executing initialize function.
+     */
     (function init() {
         getSpaces().then(function(spaces) {
             $scope.spaces = spaces;
