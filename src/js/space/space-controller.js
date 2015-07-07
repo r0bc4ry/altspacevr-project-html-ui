@@ -25,9 +25,30 @@ angular.module('myApp.controllers').controller('SpaceController', function(
      * Save handler for the edit form.
      */
     $scope.onEditSave = function() {
-        $scope.space = angular.copy($scope.editableSpace);
-        $scope.section = 'analytics';
+        if (! isValid()) {
+            return $scope.errorMessage = 'Oops! Title and description are required.';
+        }
+
+        Space.updateById({
+            id: $scope.editableSpace.id
+        }, $scope.editableSpace, function(space) {
+            $scope.space = angular.copy($scope.editableSpace);
+            $scope.section = 'analytics';
+        }, function(error) {
+            $log.error(error);
+        });
     };
+
+    /**
+     * Validate user input.
+     * @returns {boolean}
+     */
+    function isValid() {
+        if (! $scope.editableSpace.title || ! $scope.editableSpace.description) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Event handler for when a space's members have changed.
@@ -35,8 +56,8 @@ angular.module('myApp.controllers').controller('SpaceController', function(
     $scope.$on('spaceMembersChanged', function(event, members) {
         Space.updateById({
             id: $routeParams.id
-        }, $scope.space, function() {
-            // No action needed on success
+        }, $scope.space, function(space) {
+            $scope.editableSpace = angular.copy($scope.space);
         }, function(error) {
             $log.error(error);
         })

@@ -109,6 +109,12 @@
                     cursor: pointer;
                 }
             }
+            .error-message {
+                margin: 12px 0;
+
+                color: $error-color;
+                text-align: center;
+            }
             .buttons {
                 margin-top: 24px;
 

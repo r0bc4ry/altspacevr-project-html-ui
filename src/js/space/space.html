@@ -13,7 +13,7 @@
             <ul>
                 <li ng-click="section = 'analytics'" ng-class="{ active: section === 'analytics' }">Analytics</li>
                 <li ng-click="section = 'members'" ng-class="{ active: section === 'members' }">Members</li>
-                <li ng-click="section = 'edit'" ng-class="{ active: section === 'edit' }">Edit</li>
+                <li ng-click="errorMessage = ''; section = 'edit';" ng-class="{ active: section === 'edit' }">Edit</li>
                 <li ng-click="section = 'danger'" ng-class="{ active: section === 'danger' }">Danger Zone</li>
             </ul>
         </div>
@@ -67,18 +67,19 @@
                 <div class="input-row">
                     <label>Options</label>
                     <label class="checkbox-wrapper">
-                        <input type="checkbox" ng-model="editableSpace.welcome"> Welcome Space
+                        <input type="checkbox" ng-model="editableSpace.welcome" ng-true-value="1" ng-false-value="0"> Welcome Space
                     </label>
                     <label class="checkbox-wrapper">
-                        <input type="checkbox" ng-model="editableSpace.private"> Private Space
+                        <input type="checkbox" ng-model="editableSpace.private" ng-true-value="1" ng-false-value="0"> Private Space
                     </label>
                     <label class="checkbox-wrapper">
-                        <input type="checkbox" ng-model="editableSpace.featured"> Featured Space
+                        <input type="checkbox" ng-model="editableSpace.featured" ng-true-value="1" ng-false-value="0"> Featured Space
                     </label>
                 </div>
+                <div class="error-message" ng-show="errorMessage">{{ errorMessage }}</div>
                 <div class="buttons">
                     <button class="cancel" ng-click="onEditCancel()">Cancel Changes</button>
-                    <button ng-click="onEditSave()">Save Changes</button>
+                    <button ng-click="errorMessage = ''; onEditSave();">Save Changes</button>
                 </div>
             </form>
         </div>

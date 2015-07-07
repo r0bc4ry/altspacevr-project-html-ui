@@ -52,7 +52,7 @@ angular.module('myApp.directives').directive('altHeader', function(
                      * @returns {boolean}
                      */
                     function isValid() {
-                        if (! $scope.title || !$scope.description) {
+                        if (! $scope.title || ! $scope.description) {
                             return false;
                         }
                         return true;

@@ -1,103 +1,47 @@
 # AltspaceVR Programming Project - Spaces Admin Web Frontend
 
-## Instructions
+## The Basics
 
-Use the given data source to build an administration interface for AltspaceVR's "spaces" directory and then build some enhancements to the interface.
+I used AngularJS as my framework for this project alongside Sass (SCSS) for the styles. Normalize.css was used for the CSS reset file and Bourbon mixin library for Sass was used with Bourbon Neat to build in future support for responsiveness. I utilized NPM and Bower for package management with Gulp to do my file compilation during development. 
 
-## Goals
+All source files are located under the `src` folder, while built/public files are located within the `dist` folder. I've included the minified version of the app within the `dist` folder for your convenience. All vendor JS/CSS is combined into `vendor.js` and `vendor.css` files. App code is compiled into `app.css`, `app.js`, and `templates.js` files. The `templates.js` contains cached versions ($templateCache) of the HTML templates located in the `src` directory to prevent unnecessary requests. 
 
-We use this test to get a sense of your coding style and to how you creatively solve both a concrete problem and an abstract one. When we receive your project, here is what we will be asking ourselves:
+I really enjoyed working on this project and I hope you like what I've created!
 
-- Does the admin interface meet the requirements?
-- Is the HTML, JavaScript and CSS well structured, easy to read and understand, and organized well?
-- Is the frontend implemented in a way that enables reuse and extension?
-- Do the enhancements implemented work well?
-- Are the enhancements creative, challenging to implement, and just plain cool?
+## Enhancements
 
-This project should take approximately 5-15 hours to complete. To work on the project:
+- Included a Gulp build process with file watching, LiveReload, and production minification
+- Wrapped the included data store in a custom shim to provide caching and basic error checking/handling
+- Included space analytics with a dynamic chart of active users in the past 24 hours
+- Added space search and filtering to the dashboard
+- Added member search when selecting a space's members
+- Added basic input validating during space creating and editing with an error message
 
-- Fork and clone the repo.
-- Use the Promise-based data source provided in the `lib/data/` folder to populate the interface you create.
-- Your application should (and need only) be compatible with the latest version of Google Chrome.
-- You may use any framework or library to help you build the interface.
-- You shouldn't have to build any server-side component to complete the project.
+## Dashboard
 
-# Part 1 - Admin interface (3-5 hours)
+The dashboard provides a simple table layout of the current spaces. Spaces can be searched or filtered at the top of the page based on their type. A common header throughout the app allows users to create a new space at any time. Selecting a space will take you a page with more detailed information about it.
 
-If you've tried AltspaceVR, you'll have seen our directory of "spaces" which users can visit and interact in. Admins can spawn new spaces and manage them in various ways. Create an interface that allows admins to view and edit spaces (their environments, titles, descriptions and user restrictions).
+## Space Details
 
-Take a look at the `example/` folder for a working example. You should be able to load it with a simple HTTP server or view it on our [github.io site](https://altspacevr.github.io/altspacevr-project-html-ui/example). The example is not very pretty. Try to do a better job of styling the interface to show off your CSS skills. Also feel free to structure the UI as you like. You do not have to replicate the working example, as long as you meet the functional requirements listed below. 
+After selecting a space from the dashboard, users are taken to a detailed page about the space that includes analytics, the space's members, a way to edit space information, and the ability to delete the space. 
 
-- The interface should list existing spaces, displaying their details.
-- You should be able to edit any of the spacese in the list.
-- The edit form should allow you to edit all of the fields associated with a space (see below) except for the "created by" field, which should default to the admin user for this project.
-- The editor fields should have appropriate input types. E.g. Boolean values should be checkboxes and the list of members in a space should allow you to select any of the existing users in the data store.
-- You should also be able to create and delete spaces.
-- The changes you make to spaces should be persisted to the data store through the provided API.
+The analytics section reads some basic information I added to the data store along with creating a dynamic chart of active users. Since this would be a lot to store in the data store for each space, I have some placeholder code randomly generating numbers for each of the last 24 hours to populate the chart - this could easily be replaced by data from a backend in the future. Hovering over a data point in the graph also gives a tooltip with the specific count of the users at that time.
 
-The requirements do not call for any form/model validation but feel free to add validation if you can.
+The members section lists all current members in a grid with the ability to select/deselect a user as a member of the space. I separated this from the edit page to make the UI a littler cleaner than adding a list of members alongside the edit form. The edit form allows for changing the space's basic information along with a way to save/cancel the changes. Finally, the "Danger Zone" is a section that allows users to delete a space along with a confirmation dialog.
 
-The `Data.js` file provided in the `lib/data/` folder implements a Promise-based data store which stores and retrieves simple JavaScript objects representing Users and Spaces. You should not have to modify the data store (at least for the Part 1 of the project) but you may have to wrap it with a shim, depending on what framework you choose.
+## Possible Future Enhancements
 
-```js
-Data
-    .Users
-        .getAll()
-        .getById(Number id)
-        .updateById(Number id, Object data)
-        .create(Object data)
-        .deleteById(Number id)
-    .Spaces
-        .getAll()
-        .getById(Number id)
-        .updateById(Number id, Object data)
-        .create(Object data)
-        .deleteById(Number id)
-```
+- Compile minified JS into a single file (currently separated into `app.js`, `templates.js`, and `vendor.js`)
+- Compile minified CSS into a single file (currently separated into `app.css`, `vendor.css`)
+- Add pagination support for data returned from the backend
+- Move create/delete dialog controllers into their own files
+- Add AJAX loading icons while retrieving information from the backend
+- Add better support for small(er) screens using Bourbon Neat
 
-All of the stores' functions return Promises which resolve to an array (in the case of `getAll`) or a single object that you've retrieved, updated or created. The `deleteById` function also returns a Promise but it does not resolve to a value.
+## Development
 
-Users and Spaces have the following schema:
-
-```js
-User
-    Number id
-    String email
-    String first_name
-    String last_name
-    Boolean admin
-Space
-    Number id
-    String title
-    String description
-    Boolean welcome
-    Boolean private
-    Boolean featured
-    Number created_by
-    Array members 
-```
-
-The `admin` flag determines if a User is an admin or not. The `welcome` flag determines if a Space is designated the "welcome" space that users first visit when they enter Altspace. The `created_by` field is the `id` of the user that created the space and the `members` field is an array of User `id`s for users who are allowed to enter the space or `null` if there is no restriction. It is up to you to load the corresponding User objects by `id`.
-
-The data store comes pre-loaded with data which you can see in the `lib/data/db.json` file.
-
-# Part 2 - Enhancements (5-10 hours)
-
-Now that you have a working admin interface, enhance it with improvements that showcase your skills and creativity. This is the open ended part of the project, and is your chance to blow us away! 
-
-Some potential ideas:
-
-- Make it easier to perform bulk operations (setting flags, deletes, etc) 
-- Add a search function or a tagging function so that spaces are easier to manage and organize.
-- Add a visualization the stats for the spaces (number of users, number of visits, etc)
-- Anything you want! Got some new UX technique or library that you want to try? Use this as an excuse! Don't feel limited by the scope of Part 1.
-
-## Deliverable
-
-In your repo, you should clobber this README file with your own describing your project. Any instructions or known issues should be documented in the README as well.
-
-E-mail us a link to your Github repo to `projects@altvr.com`. Please include your contact information, and if you haven't submitted it to us already, your resume and cover letter. 
-
-We hope you have fun working on the project, and we can't wait to see what you come up with!
-    
-[The Altspace Team](http://altvr.com/team/)
+1. Run `npm install` to get the development dependencies
+2. Run `bower install` to get the frontend dependencies
+3. Run `gulp` to build the project files (unminified)
+    * `gulp watch` will enable file watching and LiveReload
+    * `gulp build` will build and minify the project files
