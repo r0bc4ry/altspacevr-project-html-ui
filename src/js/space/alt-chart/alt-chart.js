@@ -6,68 +6,147 @@ angular.module('myApp.directives').directive('altChart', function(
     return {
         restrict: 'E',
         replace: true,
-        scope: {
-            data: '='
-        },
+        scope: {},
         link: postLink,
         templateUrl: 'space/alt-chart/alt-chart.html'
     };
 
     function postLink(scope, elm, attrs) {
-        var maxDate = new Date();
-        var minDate = new Date(maxDate.getTime() - 172800000);
+        // Placeholder data (would be removed for production) to prevent errors
+        var data = [
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 },
+            { date: '', close: 0 }
+        ];
 
-        var vis = d3.select('#visualisation'),
-            WIDTH = 1024,
-            HEIGHT = 512,
-            MARGINS = {
-                top: 24,
-                right: 24,
-                bottom: 24,
-                left: 48
-            },
+        // Get date references for the past 24 hours
+        var now = new Date();
+        data.forEach(function(d, index) {
+            d.date = new Date(now.getTime() - (3600000 * index));
+        });
 
-            //xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([2000, 2010]),
-            xScale = d3.time.scale().domain([minDate, maxDate]).range([0, 1024]),
+        // Set the dimensions of the graph
+        var margin = { top: 12, right: 12, bottom: 128, left: 24 },
+            width = 1024 - margin.left - margin.right,
+            height = 512 - margin.top - margin.bottom;
 
-            yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([0, 10]),
+        // Set the ranges
+        var x = d3.time.scale().range([0, width]);
+        var y = d3.scale.linear().range([height, 0]);
 
-            xAxis = d3.svg.axis()
-                .scale(xScale),
+        // Define the axes
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient('bottom')
+            .ticks(d3.time.hours, 6)
+            .tickFormat(d3.time.format('%x %I%p'));
 
-            yAxis = d3.svg.axis()
-                .scale(yScale)
-                .orient('left');
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient('left')
+            .ticks(10);
 
-        vis.append('svg:g')
-            .attr('class','axis')
-            .attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')')
-            .call(xAxis);
+        // Define the line
+        var line = d3.svg.line()
+            .x(function(d) { return x(d.date); })
+            .y(function(d) { return y(d.close); });
 
-        vis.append('svg:g')
-            .attr('class','axis')
-            .attr('transform', 'translate(' + (MARGINS.left) + ',0)')
+        // Define the tooltips
+        var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function (d) {
+                return '' +
+                    '<div class="tooltip">' +
+                        '<strong>' + d.date.getHours() + ':' + d.date.getMinutes() + '</strong> <span>' + d.close + ' Users</span>' +
+                    '</div>';
+            });
+
+        // Define the SVG
+        var svg = d3.select('#visualisation')
+            .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+            .append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+        var lineSvg = svg.append('g');
+
+        // Call the tooltips
+        svg.call(tip);
+
+        data.forEach(function(d, index) {
+            d.date = d.date;
+            d.close = +(Math.floor((Math.random() * 16) + 1));
+        });
+
+        // Setup the X/Y domains
+        x.domain(d3.extent(data, function (d) {
+            return d.date;
+        }));
+
+        y.domain([0, d3.max(data, function(d) {
+            return d.close;
+        })]);
+
+        // Add the X Axis
+        svg.append('g')
+            .attr('class', 'x axis')
+            .attr('transform', 'translate(0,' + height + ')')
+            .call(xAxis)
+            .selectAll('text')
+                .style('text-anchor', 'end')
+                .attr('dx', '-.8em')
+                .attr('dy', '.15em')
+                .attr('transform', function(d) {
+                    return 'rotate(-60)'
+                });
+
+        // Add the Y Axis
+        svg.append('g')
+            .attr('class', 'y axis')
             .call(yAxis);
 
-        vis.selectAll('circle')
-            .data(scope.data).enter().append('svg:circle')
-            //...
-            .append('svg:title')
-            .text(function(d) { return d.users; });
+        // Add the line path
+        lineSvg.append('path')
+            .attr('class', 'line')
+            .attr('d', line(data));
 
-        var lineGen = d3.svg.line()
-            .x(function(d) {
-                return xScale(d.date);
+        // Add circles to the data points along the line
+        svg.selectAll('.circle')
+            .data(data)
+            .enter()
+            .append('svg:circle')
+            .attr('class', 'circle')
+            .attr('cx', function (d, i) {
+                return x(d.date);
             })
-            .y(function(d) {
-                return yScale(d.users);
+            .attr('cy', function (d, i) {
+                return y(d.close);
             })
-            .interpolate('basis');
-
-        vis.append('svg:path')
-            .attr('d', lineGen(scope.data))
-            .attr('stroke', '#00B4FF')
-            .attr('stroke-width', 2)
-            .attr('fill', 'none');
+            .attr('r', 4)
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
     }
 });

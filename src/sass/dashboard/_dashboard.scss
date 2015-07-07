@@ -53,11 +53,36 @@
             text-transform: uppercase;
         }
         a {
+            @include row();
+
             &:link,
             &:visited,
             &:hover,
             &:active {
                 color: inherit;
+            }
+
+            background-color: rgba(#fff, 0.1);
+
+            line-height: 50px;
+
+            cursor: pointer;
+            @include user-select(none);
+
+            &:hover {
+                background-color: $background-color-light-accent;
+            }
+            .description-column {
+                height: 50px;
+
+                overflow: hidden;
+            }
+            .welcome-column,
+            .private-column,
+            .featured-column {
+                .fa.fa-dot-circle-o {
+                    color: $primary-color;
+                }
             }
         }
         .fa {
@@ -65,7 +90,7 @@
         }
         .title-column,
         .description-column,
-        .current-users-column,
+        .members-column,
         .created-by-column,
         .welcome-column,
         .private-column,
@@ -82,7 +107,7 @@
         .created-by-column {
             @include span-columns(2, table);
         }
-        .current-users-column {
+        .members-column {
             @include span-columns(1, table);
         }
         .welcome-column,
@@ -91,6 +116,10 @@
             @include span-columns(1, table);
 
             text-align: center;
+        }
+        .none-found {
+            text-align: center;
+            line-height: 50px;
         }
     }
 }

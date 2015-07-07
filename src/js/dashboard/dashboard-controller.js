@@ -2,12 +2,14 @@
 
 angular.module('myApp.controllers').controller('DashboardController', function(
     $location,
+    $log,
     $q,
     $rootScope,
     $scope,
     Space,
     User
 ) {
+    // Initialize the options for the dropdown filter
     $scope.ddSelectOptions = [{
         text: 'All Spaces',
         value: 'all'
@@ -22,13 +24,14 @@ angular.module('myApp.controllers').controller('DashboardController', function(
         value: 'featured'
     }];
 
+    // Initialize the default selected value for the dropdown filter
     $scope.ddSelectSelected = {
         text: 'All Spaces',
         value: 'all'
     };
 
     /**
-     * onChange handler for the dropdown filter.
+     * Change handler for the dropdown filter.
      * @param value
      */
     $scope.onDropdownChange = function(value) {
@@ -42,10 +45,14 @@ angular.module('myApp.controllers').controller('DashboardController', function(
         });
     };
 
-    // TODO Determine a better way to handle retrieving/storing data
+    /**
+     * Get all spaces along with the information about their creator.
+     * @returns {*}
+     */
     function getSpaces() {
         var deferred = $q.defer();
 
+        // TODO Use a service based architecture to move data handling outside the controller
         Space.getAll(function(spaces) {
             var spaceDeferreds = [];
 
@@ -60,7 +67,7 @@ angular.module('myApp.controllers').controller('DashboardController', function(
                     space.created_by = user;
                     spaceDeferred.resolve();
                 }, function(error) {
-                    console.log(error);
+                    $log.error(error);
                 });
             });
 
@@ -68,7 +75,7 @@ angular.module('myApp.controllers').controller('DashboardController', function(
                 deferred.resolve(spaces);
             });
         }, function(error) {
-            console.log(error);
+            $log.error(error);
         });
 
         return deferred.promise;
@@ -78,6 +85,7 @@ angular.module('myApp.controllers').controller('DashboardController', function(
      * Self-executing initialize function.
      */
     (function init() {
+        // Get all spaces
         getSpaces().then(function(spaces) {
             $scope.spaces = spaces;
         });

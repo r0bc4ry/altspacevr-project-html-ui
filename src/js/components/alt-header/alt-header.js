@@ -2,6 +2,7 @@
 
 angular.module('myApp.directives').directive('altHeader', function(
     $location,
+    $log,
     ngDialog
 ) {
     return {
@@ -14,19 +15,19 @@ angular.module('myApp.directives').directive('altHeader', function(
 
     function postLink(scope, elm, attrs) {
         /**
-         *
+         * Open the dialog to create a new space.
          */
         scope.openCreateSpaceDialog = function() {
+            // Create create dialog
             ngDialog.open({
                 template: 'components/alt-header/create-space-dialog.html',
                 controller: ['$rootScope', '$scope', 'Space', function($rootScope, $scope, Space) {
                     /**
-                     *
+                     * Click handler for creating a new space.
                      */
                     $scope.onCreateClick = function() {
                         if (! isValid()) {
-                            // TODO Handle an invalid form
-                            return;
+                            return $scope.errorMessage = 'Oops! Title and description are required.';
                         }
 
                         Space.create({
@@ -42,12 +43,12 @@ angular.module('myApp.directives').directive('altHeader', function(
                             });
                             $scope.closeThisDialog();
                         }, function(error) {
-                            console.log(error);
+                            $log.error(error);
                         });
                     };
 
                     /**
-                     *
+                     * Validate user input.
                      * @returns {boolean}
                      */
                     function isValid() {

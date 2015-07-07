@@ -135,34 +135,16 @@ textarea {
     line-height: 22.652px;
     cursor: pointer; }
 
+.create-space-dialog .error-message {
+  margin: 12px 0;
+  color: #E74C3C;
+  text-align: center; }
+
 .create-space-dialog .buttons {
   margin-top: 24px;
   text-align: center; }
   .create-space-dialog .buttons .cancel {
-    margin-left: 12px; }
-
-.alt-space-row {
-  display: block;
-  background-color: rgba(255, 255, 255, 0.1);
-  line-height: 50px;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none; }
-  .alt-space-row::after {
-    clear: both;
-    content: "";
-    display: table; }
-  .alt-space-row:hover {
-    background-color: #EEEEEE; }
-  .alt-space-row .description-column {
-    height: 50px;
-    overflow: hidden; }
-  .alt-space-row .welcome-column .fa.fa-dot-circle-o,
-  .alt-space-row .private-column .fa.fa-dot-circle-o,
-  .alt-space-row .featured-column .fa.fa-dot-circle-o {
-    color: #00B4FF; }
+    margin-right: 12px; }
 
 .dashboard {
   max-width: 68em;
@@ -221,16 +203,38 @@ textarea {
         clear: both;
         content: "";
         display: table; }
-    .dashboard .table a:link,
-    .dashboard .table a:visited,
-    .dashboard .table a:hover,
-    .dashboard .table a:active {
-      color: inherit; }
+    .dashboard .table a {
+      display: block;
+      background-color: rgba(255, 255, 255, 0.1);
+      line-height: 50px;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none; }
+      .dashboard .table a::after {
+        clear: both;
+        content: "";
+        display: table; }
+      .dashboard .table a:link,
+      .dashboard .table a:visited,
+      .dashboard .table a:hover,
+      .dashboard .table a:active {
+        color: inherit; }
+      .dashboard .table a:hover {
+        background-color: #EEEEEE; }
+      .dashboard .table a .description-column {
+        height: 50px;
+        overflow: hidden; }
+      .dashboard .table a .welcome-column .fa.fa-dot-circle-o,
+      .dashboard .table a .private-column .fa.fa-dot-circle-o,
+      .dashboard .table a .featured-column .fa.fa-dot-circle-o {
+        color: #00B4FF; }
     .dashboard .table .fa {
       font-size: 16px; }
     .dashboard .table .title-column,
     .dashboard .table .description-column,
-    .dashboard .table .current-users-column,
+    .dashboard .table .members-column,
     .dashboard .table .created-by-column,
     .dashboard .table .welcome-column,
     .dashboard .table .private-column,
@@ -246,7 +250,7 @@ textarea {
     .dashboard .table .created-by-column {
       display: table-cell;
       width: 16.66667%; }
-    .dashboard .table .current-users-column {
+    .dashboard .table .members-column {
       display: table-cell;
       width: 8.33333%; }
     .dashboard .table .welcome-column,
@@ -255,6 +259,49 @@ textarea {
       display: table-cell;
       width: 8.33333%;
       text-align: center; }
+    .dashboard .table .none-found {
+      text-align: center;
+      line-height: 50px; }
+
+.alt-chart .x.axis .domain {
+  fill: none;
+  stroke: #FFFFFF;
+  stroke-width: 1; }
+
+.alt-chart .x.axis .tick line {
+  display: none; }
+
+.alt-chart .y.axis path {
+  display: none; }
+
+.alt-chart .y.axis .tick line {
+  display: none; }
+
+.alt-chart .line {
+  fill: none;
+  stroke: #00B4FF;
+  stroke-width: 2px; }
+
+.alt-chart .circle {
+  cursor: pointer;
+  fill: #FFFFFF;
+  stroke: #00B4FF; }
+
+.d3-tip {
+  background-color: #FFFFFF;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px; }
+  .d3-tip::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 0 10px;
+    border-color: #ffffff transparent transparent transparent;
+    position: absolute;
+    bottom: -10px;
+    left: calc(50% - 10px); }
 
 .alt-member-select .search-wrapper {
   display: block;
@@ -319,7 +366,7 @@ textarea {
   margin-top: 24px;
   text-align: center; }
   .delete-space-dialog .buttons .cancel {
-    margin-left: 12px; }
+    margin-right: 12px; }
 
 .space section > div {
   max-width: 68em;
@@ -378,11 +425,6 @@ textarea {
   .space section.danger-zone input[type="text"],
   .space section.danger-zone textarea {
     border: none; }
-
-.space section.analytics .axis path {
-  fill: none;
-  stroke: #515151;
-  shape-rendering: crispEdges; }
 
 .space section.analytics .statistics {
   display: block;

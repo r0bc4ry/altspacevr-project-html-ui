@@ -8,14 +8,19 @@ $primary-color: #00B4FF;
 $accent-color: #2ECC71;
 $error-color: #E74C3C;
 
+// App-wide base styles
 @import "button";
 @import "dialog";
 @import "input";
 @import "select";
+
+// Shared components
 @import "components/alt-header";
 @import "components/create-space-dialog";
-@import "dashboard/alt-space-row";
+
+// Partials and partial-specific components
 @import "dashboard/dashboard";
+@import "space/alt-chart";
 @import "space/alt-member-select";
 @import "space/delete-space-dialog";
 @import "space/space";

@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('myApp.directives').directive('altMemberSelect', function(
+    $log,
     User
 ) {
     return {
@@ -14,6 +15,11 @@ angular.module('myApp.directives').directive('altMemberSelect', function(
     };
 
     function postLink(scope, elm, attrs) {
+        /**
+         * Angular ngClass function for a user's tile.
+         * @param user
+         * @returns {Array}
+         */
         scope.getUserTileClasses = function(user) {
             var classes = [];
 
@@ -24,6 +30,10 @@ angular.module('myApp.directives').directive('altMemberSelect', function(
             return classes;
         };
 
+        /**
+         * Click handler for a user's tile.
+         * @param user
+         */
         scope.onUserTileClick = function(user) {
             if (! scope.members) {
                 scope.members = [];
@@ -44,10 +54,11 @@ angular.module('myApp.directives').directive('altMemberSelect', function(
          * Self-executing initialize function.
          */
         (function init() {
+            // Get all users (would need to be paginated in the future)
             User.getAll(function(users) {
                 scope.users = users;
             }, function(error) {
-                console.log(error);
+                $log.error(error);
             });
         })();
     }

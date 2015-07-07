@@ -3,6 +3,7 @@
 angular.module('myApp.services').service('Space', function(
     $cacheFactory
 ) {
+    // Construct cache object
     var cache = $cacheFactory('space');
 
     /**

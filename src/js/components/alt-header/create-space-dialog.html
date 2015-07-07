@@ -14,8 +14,9 @@
         <label class="checkbox-wrapper"><input type="checkbox" ng-model="private"> Private Space</label>
         <label class="checkbox-wrapper"><input type="checkbox" ng-model="featured"> Featured Space</label>
     </div>
+    <div class="error-message" ng-show="errorMessage">{{ errorMessage }}</div>
     <div class="buttons">
-        <button ng-click="onCreateClick()">Create Space</button>
         <button class="cancel" ng-click="closeThisDialog()">Cancel</button>
+        <button ng-click="errorMessage = ''; onCreateClick();">Create Space</button>
     </div>
 </div>

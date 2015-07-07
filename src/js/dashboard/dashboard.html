@@ -15,8 +15,8 @@
                 <div class="description-column">
                     Description
                 </div>
-                <div class="current-users-column">
-                    Users
+                <div class="members-column">
+                    Members
                 </div>
                 <div class="created-by-column">
                     Created By
@@ -32,8 +32,32 @@
                 </div>
             </header>
             <a ng-repeat="space in spaces | filter: search" ng-href="#/spaces/{{ space.id }}">
-                <alt-space-row space="space"></alt-space-row>
+                <div class="title-column">
+                    {{ space.title }}
+                </div>
+                <div class="description-column">
+                    {{ space.description }}
+                </div>
+                <div class="members-column">
+                    {{ (space.members.length | number: 0) || 0 }}
+                </div>
+                <div class="created-by-column">
+                    {{ space.created_by.first_name }} {{ space.created_by.last_name }}
+                </div>
+                <div class="welcome-column">
+                    <i class="fa fa-circle-o" ng-hide="space.welcome"></i>
+                    <i class="fa fa-dot-circle-o" ng-show="space.welcome"></i>
+                </div>
+                <div class="private-column">
+                    <i class="fa fa-circle-o" ng-hide="space.private"></i>
+                    <i class="fa fa-dot-circle-o" ng-show="space.private"></i>
+                </div>
+                <div class="featured-column">
+                    <i class="fa fa-circle-o" ng-hide="space.featured"></i>
+                    <i class="fa fa-dot-circle-o" ng-show="space.featured"></i>
+                </div>
             </a>
+            <div class="none-found" ng-show="!spaces.length">No spaces found.</div>
         </div>
     </section>
 </div>
